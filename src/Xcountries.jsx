@@ -15,7 +15,27 @@ export default function Xcountries() {
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
-        fetch('https://xcountries-backend.azurewebsites.net/all').then(res => res.json()).then(data => setCountries(data)).catch(err => console.error("Error fetching data:", err));
+
+        async function fetchData() {
+            try {
+                const res = await fetch('https://xcountries-backend.azurewebsites.net/all');
+                const data = await res.json();
+                setCountries(data);
+            }
+            catch (err) {
+                console.error("Error fetching data: ", err)
+            }
+
+        }
+
+        fetchData()
+        // }
+        // try {
+
+        //     fetch('https://xcountries-backend.azurewebsites.net/al').then(res => res.json()).then(data => setCountries(data))
+        // } catch (err) {
+        //     console.error("Error in fetching data : ", err)
+        // }
     }, [])
 
     return (
